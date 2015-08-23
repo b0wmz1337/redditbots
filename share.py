@@ -59,6 +59,11 @@ class STOCKS:
 		try:
 			if self.credit[username] - (amount*self.prices[seller]) < 0:
 				return "nocash"
+			try:
+				if amount > self.shares[username][seller]:
+					return "noshares"
+			except KeyError:
+				return "noshares"
 			self.credit[username]-=amount*self.prices[seller]
 			self.log.info("Removed total %d from account %s. Total now is %d. Individual price for share %s %d" % (amount*self.prices[seller], username, self.credit[username], seller, self.prices[seller]))
 		except KeyError:
@@ -82,8 +87,8 @@ class STOCKS:
 				self.log.debug(c.body)
 
 				try:
-					self.log.debug(action[1])
-				except IndexError:
+					self.log.debug(self.prices[action[1]])
+				except KeyError:
 					reply = "Invalid Code %s" % action[1]
 					self.log.error(reply)
 					c.reply(reply)
@@ -115,6 +120,9 @@ class STOCKS:
 				except ValueError:
 					if remaining == "nocash":
 						c.reply("You do not have enough money to make this trade.")
+						continue
+					elif remaining == "noshares":
+						c.reply("You do not have this many shares.")
 						continue
 
 				self.doneposts.append(c.id)

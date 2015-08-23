@@ -7,6 +7,6 @@ app_key=geYKFZfUFwduOg
 app_secret=40Qfwpvo3G06PGWTg-NhVPjDvJI
 
 # Token
-token=18232327-CBSW6L-4rIyJFdt-AKjj--hny4k
+token=18232327-WgZqifwa5zNtSRundPqF6WCgFY4
 refresh_token=18232327-2Qj54GjImlyTdpFWvwYmZieExiw
-valid_until=1440304035.25
+valid_until=1440309605.22
