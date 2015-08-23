@@ -82,7 +82,11 @@ class STOCKS:
 				if c.id in self.doneposts:
 					self.log.debug("Not checking post %s, since already checked" % c.id)
 					continue
-				print "hurr"
+				if c.edited is True:
+					self.log.debug("Post %s id edited, skipping" % c.id)
+					self.doneposts.append(c.id)
+					c.reply("Post is edited, ignoring.")
+					continue
 				action = c.body.split()
 				self.log.debug(c.body)
 
