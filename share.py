@@ -51,7 +51,12 @@ class STOCKS:
 		self.credit = json.loads(self.r.get_wiki_page(self.subreddit, "credit").content_md)
 		self.log.debug("Loaded user credit")
 
-	def getUsersShares(self):
+	def getUserShares(self, username):
+		for idx, val in self.shares.iteritems():
+			if idx == username:
+				return val
+
+	def getTotalShares(self):
 		self.shares = json.loads(self.r.get_wiki_page(self.subreddit, "shares").content_md)
 		self.log.debug("Loaded user shares")
 
@@ -165,7 +170,7 @@ class STOCKS:
 	def main(self):
 		self.getSharePrices()
 		self.getUsersCredit()
-		self.getUsersShares()
+		self.getTotalShares()
 		self.parseComments()
 		self.das = {"b0wmz": {"ZUL": 5, "AME": 5}}
 		time.sleep(2)
