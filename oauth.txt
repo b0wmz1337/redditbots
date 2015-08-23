@@ -1,0 +1,12 @@
+# Config
+scope=identity,account,edit,flair,history,livemanage,modconfig,modflair,modlog,modothers,modposts,modself,modwiki,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread # These grant the bot to every scope, only use those you want it to access.
+refreshable=True
+
+# Appinfo
+app_key=geYKFZfUFwduOg
+app_secret=40Qfwpvo3G06PGWTg-NhVPjDvJI
+
+# Token
+token=18232327-5xQEI-1O60IlH-lCtFDke5U9POo
+refresh_token=18232327-2Qj54GjImlyTdpFWvwYmZieExiw
+valid_until=1440296321.37

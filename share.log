@@ -1,0 +1,54 @@
+2015-08-22 18:54:56,394 - main - DEBUG - Buy ZUL 10
+2015-08-22 18:54:56,395 - main - DEBUG - ZUL
+2015-08-22 18:54:56,395 - main - ERROR - STOCKS instance has no attribute 'credit'
+Traceback (most recent call last):
+  File "./share.py", line 84, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 53, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+AttributeError: STOCKS instance has no attribute 'credit'
+2015-08-22 19:00:25,666 - main - DEBUG - Buy ZUL 10
+2015-08-22 19:00:25,667 - main - DEBUG - ZUL
+2015-08-22 19:00:25,667 - main - ERROR - STOCKS instance has no attribute 'credit'
+Traceback (most recent call last):
+  File "./share.py", line 84, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 53, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+AttributeError: STOCKS instance has no attribute 'credit'
+2015-08-22 19:01:43,262 - main - DEBUG - Buy ZUL 10
+2015-08-22 19:01:43,263 - main - DEBUG - ZUL
+2015-08-22 19:01:43,264 - main - ERROR - list indices must be integers, not str
+Traceback (most recent call last):
+  File "./share.py", line 84, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 53, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+TypeError: list indices must be integers, not str
+2015-08-22 19:02:19,468 - main - DEBUG - Buy ZUL 10
+2015-08-22 19:02:19,469 - main - DEBUG - ZUL
+2015-08-22 19:02:19,470 - main - ERROR - list indices must be integers, not str
+Traceback (most recent call last):
+  File "./share.py", line 85, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 54, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+TypeError: list indices must be integers, not str
+2015-08-22 19:03:43,404 - main - DEBUG - Buy ZUL 10
+2015-08-22 19:03:43,405 - main - DEBUG - ZUL
+2015-08-22 19:03:43,405 - main - ERROR - list indices must be integers, not str
+Traceback (most recent call last):
+  File "./share.py", line 85, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 54, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+TypeError: list indices must be integers, not str
+2015-08-22 19:04:01,898 - main - DEBUG - Buy ZUL 10
+2015-08-22 19:04:01,899 - main - DEBUG - ZUL
+2015-08-22 19:04:01,899 - main - ERROR - list indices must be integers, not str
+Traceback (most recent call last):
+  File "./share.py", line 86, in parseComments
+    remaining = self.creditUserShare(str(c.author), action[1], action[2])
+  File "./share.py", line 55, in creditUserShare
+    self.credit[username]-=amount*self.prices[seller]
+TypeError: list indices must be integers, not str
