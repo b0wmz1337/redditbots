@@ -43,10 +43,11 @@ class STOCKS:
 			self.log.critical("No sticky, exiting")
 			exit()
 		self.currentpost = post
-		post = re.match(r".*?\|.*?\|.*?\|\n[--:]+\|[--:]+\|[--:]+\|(.*)", post.selftext, flags=re.DOTALL).group(1)
+		post = re.match(r".*?\|.*?\|.*?\|\n[--:]+\|[--:]+\|[--:]+\|(.*)", post.selftext, flags=re.DOTALL)
 		if post.group is None:
 			self.log.critical("Sticky has no table, exiting")
 			exit()
+		post = post.group(1)
 		post = post.replace("\n", "")
 		post = post.split("|")
 		del post[-1]
