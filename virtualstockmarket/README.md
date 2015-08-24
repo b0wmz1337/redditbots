@@ -5,7 +5,7 @@ Simulates a stock market
 Users can buy or sell shares by commenting either `BUY SOMETHING AMOUNT` or `SELL SOMETHING AMOUNT`, `SOMETHING` being the three letter code for the stock.
 Users can also get their current shares by PMing the bot `LIST`.
 Users start out with 1000 credits for buying shares.
-Stock codes and their individual values are specified in the same sticky. Example sticky at the bottom.
+Stock codes and their values are specified on the wiki page `prices`. Example sticky at the bottom.
 
 Users' shares and their credit balance are stored in the wiki pages `shares` and `credit` in JSON.
 
@@ -17,69 +17,191 @@ need to be run that often.
 Run `clear.py` once to create posts file.
 
 
-### Example sticky
+### Example prices JSON
 ```
-**CODE**|**Civilization**|**Value**|
-:--|:--|--:|
-AFG|Afghanistan|489|
-AME|America|305|
-ARA|Arabia|80|
-ARG|Argentina|476|
-ARM|Armenia|238|
-ASH|Ashanti|166|
-AUS|Australia|717|
-AYY|Ayyubids|512|
-BLA|Blackfoot|448|
-BOE|Boers|400|
-BRA|Brazil|520|
-BUC|Buccaneers|816|
-BUR|Burma|266|
-BYZ|Byzantium|66|
-CAN|Canada|884|
-CAR|Carthage|80|
-CHA|Champa|25|
-CHL|Chile|463|
-CHN|China|606|
-ENG|England|176|
-ETH|Ethiopia|608|
-FIN|Finland|221|
-FRA|France|506|
-GER|Germany|359|
-HAW|Hawaii|110|
-HUN|Huns|530|
-ICE|Iceland|446|
-INC|Inca|235|
-IND|Indonesia|36|
-INU|Inuit|697|
-IRE|Ireland|519|
-ISR|Israel|205|
-JAP|Japan|359|
-KIM|Kimberly|622|
-KON|Kongo|308|
-KOR|Korea|31|
-MAL|Mali|123|
-MAO|Maori|305|
-MAY|Mayans|381|
-MEX|Mexico|391|
-MON|Mongolia|375|
-MOR|Morocco|208|
-MUG|Mughals|555|
-NOR|Norway|176|
-PER|Persia|298|
-PHI|Philippines|265|
-POL|Poland|345|
-POR|Portugal|268|
-ROM|Rome|135|
-SIB|Sibir|404|
-SIO|Sioux|587|
-SPA|Sparta|566|
-SRI|Sri Lanka|537|
-SWE|Sweden|132|
-TEX|Texas|348|
-TIB|Tibet|162|
-TIM|Timurids|327|
-USS|U.S.S.R|229|
-VIE|Vietnam|413|
-YAK|Yakutia|639|
-ZUL|Zulus|202|
+{  
+  "AFG": {  
+    "Value":553  
+  },  
+  "AME": {  
+    "Value":350  
+  },  
+  "ARA": {  
+    "Value":75  
+  },  
+  "ARG": {  
+    "Value":472  
+  },  
+  "ARM": {  
+    "Value":252  
+  },  
+  "ASH": {  
+    "Value":387  
+  },  
+  "AUS": {  
+    "Value":745  
+  },  
+  "AYY": {  
+    "Value":446  
+  },  
+  "BLA": {  
+    "Value":410  
+  },  
+  "BOE": {  
+    "Value":533  
+  },  
+  "BRA": {  
+    "Value":525  
+  },  
+  "BUC": {  
+    "Value":741  
+  },  
+  "BUR": {  
+    "Value":150  
+  },  
+  "BYZ": {  
+    "Value":83  
+  },  
+  "CAN": {  
+    "Value":868  
+  },  
+  "CAR": {  
+    "Value":68  
+  },  
+  "CHA": {  
+    "Value":54  
+  },  
+  "CHL": {  
+    "Value":538  
+  },  
+  "CHN": {  
+    "Value":551  
+  },  
+  "ENG": {  
+    "Value":206  
+  },  
+  "ETH": {  
+    "Value":617  
+  },  
+  "FIN": {  
+    "Value":219  
+  },  
+  "FRA": {  
+    "Value":424  
+  },  
+  "GER": {  
+    "Value":383  
+  },  
+  "HAW": {  
+    "Value":92  
+  },  
+  "HUN": {  
+    "Value":547  
+  },  
+  "ICE": {  
+    "Value":369  
+  },  
+  "INC": {  
+    "Value":283  
+  },  
+  "IND": {  
+    "Value":32  
+  },  
+  "INU": {  
+    "Value":680  
+  },  
+  "IRE": {  
+    "Value":381  
+  },  
+  "ISR": {  
+    "Value":179  
+  },  
+  "JAP": {  
+    "Value":251  
+  },  
+  "KIM": {  
+    "Value":609  
+  },  
+  "KON": {  
+    "Value":198  
+  },  
+  "KOR": {  
+    "Value":40  
+  },  
+  "MAL": {  
+    "Value":137  
+  },  
+  "MAO": {  
+    "Value":197  
+  },  
+  "MAY": {  
+    "Value":376  
+  },  
+  "MEX": {  
+    "Value":474  
+  },  
+  "MON": {  
+    "Value":337  
+  },  
+  "MOR": {  
+    "Value":251  
+  },  
+  "MUG": {  
+    "Value":567  
+  },  
+  "NOR": {  
+    "Value":338  
+  },  
+  "PER": {  
+    "Value":190  
+  },  
+  "PHI": {  
+    "Value":227  
+  },  
+  "POL": {  
+    "Value":401  
+  },  
+  "POR": {  
+    "Value":365  
+  },  
+  "ROM": {  
+    "Value":83  
+  },  
+  "SIB": {  
+    "Value":438  
+  },  
+  "SIO": {  
+    "Value":583  
+  },  
+  "SPA": {  
+    "Value":487  
+  },  
+  "SRI": {  
+    "Value":403  
+  },  
+  "SWE": {  
+    "Value":116  
+  },  
+  "TEX": {  
+    "Value":190  
+  },  
+  "TIB": {  
+    "Value":84  
+  },  
+  "TIM": {  
+    "Value":465  
+  },  
+  "USS": {  
+    "Value":362  
+  },  
+  "VIE": {  
+    "Value":323  
+  },  
+  "YAK": {  
+    "Value":639  
+  },  
+  "ZUL": {  
+    "Value":159  
+  }  
+}  
 ```

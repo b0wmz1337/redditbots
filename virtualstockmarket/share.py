@@ -37,23 +37,10 @@ class STOCKS:
 		self.log.setLevel(logging.DEBUG)
 
 	def getSharePrices(self):
-		try:
-			post = self.subreddit.get_sticky()
-		except praw.errors.NotFound:
-			self.log.critical("No sticky, exiting")
-			exit()
-		self.currentpost = post
-		post = re.match(r".*?\|.*?\|.*?\|\n[--:]+\|[--:]+\|[--:]+\|(.*)", post.selftext, flags=re.DOTALL)
-		if not hasattr(post, "group"):
-			self.log.critical("Sticky has no table, exiting")
-			exit()
-		post = post.group(1)
-		post = post.replace("\n", "")
-		post = post.split("|")
-		del post[-1]
-		for idx, val in enumerate(post[0::3],1): #probably a more pythonic/nicer way of doing this
-			# self.prices.append([val, post[idx*3-1]])
-			self.prices[val.upper()] = int(post[idx*3-1])
+		page = self.r.get_wiki_page(self.subreddit, "prices").content_md
+		for idx,val in json.loads(page).iteritems():
+			self.prices[idx] = val['Value']
+		self.log.debug("Loaded share prices")
 
 	def getUsersCredit(self):
 		self.credit = json.loads(self.r.get_wiki_page(self.subreddit, "credit").content_md)
