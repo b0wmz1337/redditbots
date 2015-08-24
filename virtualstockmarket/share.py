@@ -37,8 +37,9 @@ class STOCKS:
 		self.log.setLevel(logging.DEBUG)
 
 	def getSharePrices(self):
-		post = self.subreddit.get_sticky()
-		if post is None:
+		try:
+			post = self.subreddit.get_sticky()
+		except praw.errors.NotFound:
 			self.log.critical("No sticky, exiting")
 			exit()
 		self.currentpost = post
