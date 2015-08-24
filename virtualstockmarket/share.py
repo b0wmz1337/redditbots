@@ -23,11 +23,6 @@ class STOCKS:
 		self.shares = {} #users individual shares
 		with open("doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
-		try:
-			self.currentpost = self.r.get_sticky()
-		except praw.errors.NotFound:
-			self.log.critical("No sticky found, aborting.")
-			exit()
 
 		self.log = logging.getLogger("main")
 		formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -40,6 +35,12 @@ class STOCKS:
 		fh.setFormatter(formatter)
 		self.log.addHandler(fh)
 		self.log.setLevel(logging.DEBUG)
+
+		try:
+			self.currentpost = self.r.get_sticky()
+		except praw.errors.NotFound:
+			self.log.critical("No sticky found, aborting.")
+			exit()
 
 	def getSharePrices(self):
 		page = self.r.get_wiki_page(self.subreddit, "prices").content_md
