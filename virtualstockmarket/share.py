@@ -37,7 +37,7 @@ class STOCKS:
 		self.log.setLevel(logging.DEBUG)
 
 		try:
-			self.currentpost = self.r.get_sticky()
+			self.currentpost = self.r.get_sticky(self.subreddit)
 		except praw.errors.NotFound:
 			self.log.critical("No sticky found, aborting.")
 			exit()
