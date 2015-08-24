@@ -38,6 +38,9 @@ class STOCKS:
 
 	def getSharePrices(self):
 		post = self.subreddit.get_sticky()
+		if post is None:
+			self.log.critical("No sticky, exiting")
+			exit()
 		self.currentpost = post
 		post = re.match(r".*?\|.*?\|.*?\|\n[--:]+\|[--:]+\|[--:]+\|(.*)", post.selftext, flags=re.DOTALL).group(1)
 		post = post.replace("\n", "")
