@@ -178,5 +178,5 @@ class STOCKS:
 		self.writeContent()
 
 if __name__ == "__main__":
-	s = STOCKS("testasdf35")
+	s = STOCKS("")
 	s.main()
