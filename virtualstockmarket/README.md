@@ -9,8 +9,12 @@ Stock codes and their individual values are specified in the same sticky. Exampl
 
 Users' shares and their credit balance are stored in the wiki pages `shares` and `credit` in JSON.
 
-Script are designed to be run via cron, not run continuously. `pm.py` should probably be run fairly often (i.e. every two to three minutes), while `share.py` doesn't
+## Installation and Usage
+
+Scripts are designed to be run via cron, not run continuously. `pm.py` should probably be run fairly often (i.e. every two to three minutes), while `share.py` doesn't
 need to be run that often.
+
+Run `clear.py` once to create posts file.
 
 
 ### Example sticky
