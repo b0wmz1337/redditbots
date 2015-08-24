@@ -23,6 +23,11 @@ class STOCKS:
 		self.shares = {} #users individual shares
 		with open("doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
+		try:
+			self.currentpost = self.r.get_sticky()
+		except praw.errors.NotFound:
+			self.log.critical("No sticky found, aborting.")
+			exit()
 
 		self.log = logging.getLogger("main")
 		formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
