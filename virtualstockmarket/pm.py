@@ -2,9 +2,7 @@
 #coding: utf-8
 import share
 
-s = share.STOCKS("testasdf35")
-s.getTotalShares()
-s.getUserShares("b0wmz")
+s = share.STOCKS("")
 
 # messages = s.r.get_messages()
 messages = s.r.get_unread()
