@@ -173,7 +173,6 @@ class STOCKS:
 		self.getUsersCredit()
 		self.getTotalShares()
 		self.parseComments()
-		self.das = {"b0wmz": {"ZUL": 5, "AME": 5}}
 		time.sleep(2)
 		self.writeContent()
 
