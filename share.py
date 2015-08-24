@@ -45,7 +45,7 @@ class STOCKS:
 		del post[-1]
 		for idx, val in enumerate(post[0::3],1): #probably a more pythonic/nicer way of doing this
 			# self.prices.append([val, post[idx*3-1]])
-			self.prices[val] = int(post[idx*3-1])
+			self.prices[val.upper()] = int(post[idx*3-1])
 
 	def getUsersCredit(self):
 		self.credit = json.loads(self.r.get_wiki_page(self.subreddit, "credit").content_md)
@@ -65,7 +65,7 @@ class STOCKS:
 			if self.credit[username] - (amount*self.prices[seller]) < 0:
 				return "nocash"
 			try:
-				if amount > self.shares[username][seller]:
+				if amount > self.shares[username][seller] and amount < 0: #selling
 					return "noshares"
 			except KeyError:
 				return "noshares"
@@ -96,6 +96,7 @@ class STOCKS:
 				self.log.debug(c.body)
 
 				try:
+					action[1] = action[1].upper()
 					self.log.debug(self.prices[action[1]])
 				except KeyError:
 					reply = "Invalid Code %s" % action[1]
