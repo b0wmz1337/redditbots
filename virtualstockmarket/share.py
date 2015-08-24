@@ -44,7 +44,7 @@ class STOCKS:
 			exit()
 		self.currentpost = post
 		post = re.match(r".*?\|.*?\|.*?\|\n[--:]+\|[--:]+\|[--:]+\|(.*)", post.selftext, flags=re.DOTALL)
-		if post.group is None:
+		if not hasattr(post, "group"):
 			self.log.critical("Sticky has no table, exiting")
 			exit()
 		post = post.group(1)
