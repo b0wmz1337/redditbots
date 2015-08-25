@@ -102,7 +102,7 @@ class STOCKS:
 				action = c.body.split()
 				self.log.debug(c.body)
 
-				if len(action[0]) > 3:
+				if len(action[0]) > 4:
 					self.log.info("Post isn't buy/sell post, ignoring %s" % c.id)
 					self.doneposts.append(c.id)
 					continue
