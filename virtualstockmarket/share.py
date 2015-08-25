@@ -100,6 +100,12 @@ class STOCKS:
 				action = c.body.split()
 				self.log.debug(c.body)
 
+				if len(action) < 3:
+					self.log.info("Post too short %s" % c.id)
+					self.doneposts.append(c.id)
+					c.reply("Invalid amount of parameters")
+					continue
+
 				try:
 					action[1] = action[1].upper()
 					self.log.debug(self.prices[action[1]])
