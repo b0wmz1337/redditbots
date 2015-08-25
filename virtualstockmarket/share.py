@@ -39,6 +39,9 @@ class STOCKS:
 
 		try:
 			self.currentpost = self.r.get_sticky(self.subreddit)
+			self.log.info("Attempting to load ALL comments ...")
+			self.currentpost.replace_more_comments()
+			self.log.info("Loaded all comments successfully")
 		except praw.errors.NotFound:
 			self.log.critical("No sticky found, aborting.")
 			exit()
