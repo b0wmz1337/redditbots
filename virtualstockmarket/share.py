@@ -175,6 +175,10 @@ class STOCKS:
 		self.r.edit_wiki_page(self.subreddit, "shares", json.dumps(self.shares), "Set new shares")
 		credit = {}
 		for idx,val in self.credit.iteritems():
+			try:
+				self.margin[idx]
+			except KeyError:
+				self.margin[idx] = None
 			credit[idx] = {"Balance": val, "Margin": self.margin[idx]}
 		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(), "Set new credit")
 
