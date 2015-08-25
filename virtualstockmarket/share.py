@@ -101,10 +101,9 @@ class STOCKS:
 				action = c.body.split()
 				self.log.debug(c.body)
 
-				if len(action) < 3:
-					self.log.info("Post too short %s" % c.id)
+				if len(action[0]) > 3:
+					self.log.info("Post isn't buy/sell post, ignoring %s" % c.id)
 					self.doneposts.append(c.id)
-					c.reply("Invalid amount of parameters")
 					continue
 
 				try:
