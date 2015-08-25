@@ -15,12 +15,13 @@ class STOCKS:
 		self.r = praw.Reddit("/r/BRSE stock automation by /u/b0wmz")
 		path = os.path.realpath(__file__)
 		path = path.replace(os.path.basename(__file__), "")
-		self._o = OAuth2Util.OAuth2Util(self.r, configfile=path+"oauth.txt")
+		self._o = OAuth2Util.OAuth2Util(self.r, configfile=path+"oauth2.txt")
 
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.prices = {} #share prices
 		self.credit = {} #users individual balance
 		self.shares = {} #users individual shares
+		self.margin = {}
 		with open("doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
 
@@ -49,7 +50,10 @@ class STOCKS:
 		self.log.debug("Loaded share prices")
 
 	def getUsersCredit(self):
-		self.credit = json.loads(self.r.get_wiki_page(self.subreddit, "credit").content_md)
+		credit = json.loads(self.r.get_wiki_page(self.subreddit, "credit").content_md)
+		for idx, val in credit.iteritems():
+			self.credit[idx] = val["Balance"]
+			self.margin[idx] = val["Margin"]
 		self.log.debug("Loaded user credit")
 
 	def getUserShares(self, username):
