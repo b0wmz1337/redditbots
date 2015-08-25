@@ -69,11 +69,12 @@ class STOCKS:
 		try:
 			if self.credit[username] - (amount*self.prices[seller]) < 0:
 				return "nocash"
-			try:
-				if amount > self.shares[username][seller] and amount < 0: #selling
+			if amount < 0:
+				try:
+					if amount > self.shares[username][seller]: #user actually has shares
+						return "noshares"
+				except KeyError:
 					return "noshares"
-			except KeyError:
-				return "noshares"
 			self.credit[username]-=amount*self.prices[seller]
 			self.log.info("Removed total %d from account %s. Total now is %d. Individual price for share %s %d" % (amount*self.prices[seller], username, self.credit[username], seller, self.prices[seller]))
 		except KeyError:
