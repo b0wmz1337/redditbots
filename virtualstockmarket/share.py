@@ -180,7 +180,7 @@ class STOCKS:
 			except KeyError:
 				self.margin[idx] = None
 			credit[idx] = {"Balance": val, "Margin": self.margin[idx]}
-		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(), "Set new credit")
+		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(credit), "Set new credit")
 
 		with open("doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
