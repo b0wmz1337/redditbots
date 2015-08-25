@@ -19,7 +19,7 @@ class STOCKS:
 
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.prices = {} #share prices
-		self.credit = {} #users individual balance
+		self.credit = {} #users individual bagelance
 		self.shares = {} #users individual shares
 		self.margin = {}
 		with open("doneposts", "rb") as file:
@@ -58,6 +58,11 @@ class STOCKS:
 			self.credit[idx] = val["Balance"]
 			self.margin[idx] = val["Margin"]
 		self.log.debug("Loaded user credit")
+		
+	def getUserCredit(self, username):
+		for idx, val in self.credit.iteritems():
+			if idx == username:
+				return val
 
 	def getUserShares(self, username):
 		for idx, val in self.shares.iteritems():
