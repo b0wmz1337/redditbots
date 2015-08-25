@@ -4,7 +4,7 @@ import share
 
 s = share.STOCKS("")
 
-# messages = s.r.get_messages()
+s.getTotalShares()
 messages = s.r.get_unread()
 for m in messages:
 	if m.body.lower() == "list":
