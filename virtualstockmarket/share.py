@@ -142,9 +142,11 @@ class STOCKS:
 				except ValueError:
 					if remaining == "nocash":
 						c.reply("You do not have enough money to make this trade.")
+						self.doneposts.append(c.id)
 						continue
 					elif remaining == "noshares":
 						c.reply("You do not have this many shares.")
+						self.doneposts.append(c.id)
 						continue
 
 				self.doneposts.append(c.id)
