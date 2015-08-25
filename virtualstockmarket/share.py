@@ -22,7 +22,7 @@ class STOCKS:
 		self.credit = {} #users individual bagelance
 		self.shares = {} #users individual shares
 		self.margin = {}
-		with open("doneposts", "rb") as file:
+		with open(path+"doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
 
 		self.log = logging.getLogger("main")
