@@ -25,3 +25,4 @@ for m in messages:
 			message.append("\n\nYour credit balance is: %d" % credit)
 		s.log.debug(''.join(message))
 		m.reply(''.join(message))
+		m.mark_as_read()
