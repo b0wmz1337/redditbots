@@ -172,7 +172,10 @@ class STOCKS:
 
 	def writeContent(self):
 		self.r.edit_wiki_page(self.subreddit, "shares", json.dumps(self.shares), "Set new shares")
-		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(self.credit), "Set new credit")
+		credit = {}
+		for idx in self.credit.iteritems():
+			credit[idx] = {"Balance": val, "Margin": self.margin[idx]}
+		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(credit), "Set new credit")
 
 		with open("doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
