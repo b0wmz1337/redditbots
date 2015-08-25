@@ -15,7 +15,7 @@ class STOCKS:
 		self.r = praw.Reddit("/r/BRSE stock automation by /u/b0wmz")
 		path = os.path.realpath(__file__)
 		path = path.replace(os.path.basename(__file__), "")
-		self._o = OAuth2Util.OAuth2Util(self.r, configfile=path+"oauth2.txt")
+		self._o = OAuth2Util.OAuth2Util(self.r, configfile=path+"oauth.txt")
 
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.prices = {} #share prices
