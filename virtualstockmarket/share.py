@@ -83,6 +83,7 @@ class STOCKS:
 				self.log.error("%s doesn't have enough money to buy %d shares of %s" % (username, amount, seller))
 				return "nocash"
 			self.credit[username] = 1000-removable
+			self.margin[username] = ""
 			self.log.info("Created share account for %s and removed %d. Total is now %d. Individual price for share %s %d" % (username, amount, self.credit[username], seller, self.prices[seller]))
 		return self.credit[username]
 
