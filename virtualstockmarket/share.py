@@ -182,8 +182,6 @@ class STOCKS:
 
 
 	def writeContent(self):
-		self.shares.sort()
-		self.credit.sort()
 		self.r.edit_wiki_page(self.subreddit, "shares", json.dumps(self.shares), "Set new shares")
 		credit = {}
 		for idx,val in self.credit.iteritems():
