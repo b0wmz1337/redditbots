@@ -147,6 +147,7 @@ class STOCKS:
 				try:
 					int(remaining)
 					c.reply("Trade confirmed. **Balance %d cr.**" % remaining)
+					self.doneposts.append(c.id)
 				except ValueError:
 					if remaining == "nocash":
 						c.reply("You do not have enough money to make this trade.")
@@ -156,9 +157,6 @@ class STOCKS:
 						c.reply("You do not have this many shares.")
 						self.doneposts.append(c.id)
 						continue
-
-				self.doneposts.append(c.id)
-					
 		except Exception, e:
 			self.log.exception(e)
 
