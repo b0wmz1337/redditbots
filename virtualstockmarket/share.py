@@ -190,7 +190,7 @@ class STOCKS:
 			credit[idx] = {"Balance": val, "Margin": self.margin[idx]}
 		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(credit), "Set new credit")
 
-		with open("doneposts", "wb") as file:
+		with open(path+"doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
 
 		self.log.debug("Saved everything")
