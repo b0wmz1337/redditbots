@@ -134,10 +134,18 @@ class STOCKS:
 
 				if action[0].lower() == "buy":
 					remaining = self.creditUserShare(str(c.author), action[1], action[2])
-					self.addUserShares(str(c.author), action[1], action[2])
+					try:
+						int(remaining)
+						self.addUserShares(str(c.author), action[1], action[2])
+					except ValueError:
+						self.log.info("Doesn't have something: %s %s %s" % (remaining, str(c.author), ''.join(action)))
 				elif action[0].lower() == "sell":
 					remaining = self.creditUserShare(str(c.author), action[1], -action[2])
-					self.addUserShares(str(c.author), action[1], -action[2])
+					try:
+						int(remaining)
+						self.addUserShares(str(c.author), action[1], -action[2])
+					except ValueError:
+						self.log.info("Doesn't have something: %s %s %s" % (remaining, str(c.author), ''.join(action)))
 				else:
 					reply = "Invalid action %s. Valid actions are BUY and SELL." % action[0]
 					self.log.error(reply)
