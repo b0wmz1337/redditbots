@@ -13,16 +13,16 @@ import pickle
 class STOCKS:
 	def __init__(self, subreddit):
 		self.r = praw.Reddit("/r/BRSE stock automation by /u/b0wmz")
-		path = os.path.realpath(__file__)
-		path = path.replace(os.path.basename(__file__), "")
-		self._o = OAuth2Util.OAuth2Util(self.r, configfile=path+"oauth.txt")
+		self.path = os.path.realpath(__file__)
+		self.path = path.replace(os.path.basename(__file__), "")
+		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.prices = {} #share prices
 		self.credit = {} #users individual bagelance
 		self.shares = {} #users individual shares
 		self.margin = {}
-		with open(path+"doneposts", "rb") as file:
+		with open(self.path+"doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
 
 		self.log = logging.getLogger("main")
@@ -190,7 +190,7 @@ class STOCKS:
 			credit[idx] = {"Balance": val, "Margin": self.margin[idx]}
 		self.r.edit_wiki_page(self.subreddit, "credit", json.dumps(credit), "Set new credit")
 
-		with open(path+"doneposts", "wb") as file:
+		with open(self.path+"doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
 
 		self.log.debug("Saved everything")
