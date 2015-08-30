@@ -14,7 +14,7 @@ class STOCKS:
 	def __init__(self, subreddit):
 		self.r = praw.Reddit("/r/BRSE stock automation by /u/b0wmz")
 		self.path = os.path.realpath(__file__)
-		self.path = path.replace(os.path.basename(__file__), "")
+		self.path = self.path.replace(os.path.basename(__file__), "")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 
 		self.subreddit = self.r.get_subreddit(subreddit)
