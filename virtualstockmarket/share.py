@@ -122,6 +122,7 @@ class STOCKS:
 					reply = "Invalid Code %s" % action[1]
 					self.log.error(reply)
 					c.reply(reply)
+					self.doneposts.append(c.id)
 					continue
 
 				try:
