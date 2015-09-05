@@ -79,7 +79,7 @@ class STOCKS:
 				return "nocash"
 			if amount < 0:
 				try:
-					if amount > self.shares[username][seller]: #user actually has shares
+					if abs(amount) > self.shares[username][seller]: #user actually has shares
 						return "noshares"
 				except KeyError:
 					return "noshares"
