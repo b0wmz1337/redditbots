@@ -103,9 +103,14 @@ class STOCKS:
 					self.log.debug("Not checking post %s, since already checked" % c.id)
 					continue
 				if c.edited is True:
-					self.log.debug("Post %s id edited, skipping" % c.id)
+					self.log.debug("Post %s is edited, skipping" % c.id)
 					self.doneposts.append(c.id)
 					c.reply("Post is edited, ignoring.")
+					continue
+				if len(action) < 3:
+					self.log.debug("Post %s doesn't have 3 parameters, skipping")
+					self.doneposts.append(c.id)
+					c.reply("Invalid amount of parameters")
 					continue
 				action = c.body.split()
 				self.log.debug(c.body)
