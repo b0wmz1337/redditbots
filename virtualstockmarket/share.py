@@ -107,12 +107,12 @@ class STOCKS:
 					self.doneposts.append(c.id)
 					c.reply("Post is edited, ignoring.")
 					continue
+				action = c.body.split()
 				if len(action) < 3:
 					self.log.debug("Post %s doesn't have 3 parameters, skipping")
 					self.doneposts.append(c.id)
 					c.reply("Invalid amount of parameters")
 					continue
-				action = c.body.split()
 				self.log.debug(c.body)
 
 				if action[0].lower() != "buy" and action[0].lower() != "sell":
