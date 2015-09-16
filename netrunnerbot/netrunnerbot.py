@@ -15,6 +15,7 @@ class NETRUNNER():
 		self.path = self.path.replace(os.path.basename(__file__), "")
 		self.r = praw.Reddit("Netrunner Cardbot")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
+		self.me = self.r.get_me()
 		self.bodyreg = re.compile(r"\[\[([)\w ]+)\]\]")
 		self.urlreg = re.compile(r"http:\/\/netrunnerdb.com\/en\/card\/(\d+)")
 		self.comment = """[{0}](http://netrunnerdb.com/bundles/netrunnerdbcards/images/cards/en/{1}.png) - [NetrunnerDB](http://netrunnerdb.com/en/card/{1}), [ANCUR](http://ancur.wikia.com/wiki/{2})"""
@@ -37,7 +38,10 @@ ___
 		if "Your query didn't match any card." in req.text:
 			return None
 		soup = BeautifulSoup(req.content)
-		cardid = self.urlreg.search(soup.find("a", {"class": "card-title"})['href'])
+		try:
+			cardid = self.urlreg.search(soup.find("a", {"class": "card-title"})['href'])
+		except TypeError:
+			return None
 		return cardid.group(1)
 
 	def save(self):
@@ -46,9 +50,8 @@ ___
 
 	def main(self):
 		for c in self.r.get_subreddit(self.subreddit).get_comments():
-			if c.id in self.doneposts:
+			if c.id in self.doneposts or c.author is self.me:
 				continue
-
 			cb = self.checkBody(c.body)
 			if cb is not None:
 				cid = self.searchNDB(cb)
@@ -57,6 +60,7 @@ ___
 					self.doneposts.append(c.id)
 					continue
 				comment = self.comment.format(cb, cid, cb.replace(" ", "_"))+self.footer
-				c.reply(comment)
+				com = c.reply(comment)
 				self.doneposts.append(c.id)
+				self.doneposts.append(com.id)
 		self.save()
