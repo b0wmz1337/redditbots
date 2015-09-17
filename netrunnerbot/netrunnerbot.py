@@ -14,11 +14,13 @@ class NETRUNNER():
 		self.path = os.path.realpath(__file__)
 		self.path = self.path.replace(os.path.basename(__file__), "")
 		self.r = praw.Reddit("Netrunner Cardbot")
-		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
+		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth2.txt")
 		self.me = self.r.get_me()
 		self.bodyreg = re.compile(r"\[\[([)\w ]+)\]\]")
 		self.urlreg = re.compile(r"http:\/\/netrunnerdb.com\/en\/card\/(\d+)")
-		self.comment = """[{0}](http://netrunnerdb.com/bundles/netrunnerdbcards/images/cards/en/{1}.png) - [NetrunnerDB](http://netrunnerdb.com/en/card/{1}), [ANCUR](http://ancur.wikia.com/wiki/{2})"""
+		self.comment = """[{0}](http://netrunnerdb.com/bundles/netrunnerdbcards/images/cards/en/{1}.png) - [NetrunnerDB](http://netrunnerdb.com/en/card/{1}), [ANCUR](http://ancur.wikia.com/wiki/{2})
+
+"""
 		self.footer = """
 ___
 [[Contact]](/message/compose/?to=b0wmz&subject=NetrunnerBot) [[Source]](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot)"""
@@ -27,10 +29,10 @@ ___
 			self.doneposts = pickle.load(file)
 
 	def checkBody(self, body): # checks for something like [[*]]
-		reg = self.bodyreg.search(body)
-		if reg is None:
+		reg = self.bodyreg.findall(body)
+		if not reg:
 			return None
-		return reg.group(1)
+		return reg
 
 	def searchNDB(self, query): # checks if nrdb has entry
 		query = query.replace(" ", "+")
@@ -39,7 +41,7 @@ ___
 			return None
 		soup = BeautifulSoup(req.content)
 		try:
-			cardid = self.urlreg.search(soup.find("a", {"class": "card-title"})['href'])
+			cardid = self.urlreg.search(soup.find("a", {"class": re.compile("card-title( card-preview)?")})['href'])
 		except TypeError:
 			return None
 		return cardid.group(1)
@@ -54,13 +56,16 @@ ___
 				continue
 			cb = self.checkBody(c.body)
 			if cb is not None:
-				cid = self.searchNDB(cb)
-				if cid is None:
-					c.reply("I couldn't find that card."+self.footer)
-					self.doneposts.append(c.id)
-					continue
-				comment = self.comment.format(cb, cid, cb.replace(" ", "_"))+self.footer
+				comment = "I couldn't find any cards :(."
+				for idx,card in enumerate(cb):
+					cid = self.searchNDB(card)
+					if cid is None:
+						comment = ("" if idx == 0 else comment) + "I couldn't find {} \n\n".format(card)
+					else:
+						comment = ("" if idx == 0 else comment) + self.comment.format(card, cid, card.replace(" ", "_"))
+					if idx+1 == len(cb):
+						comment = comment+self.footer
 				com = c.reply(comment)
 				self.doneposts.append(c.id)
 				self.doneposts.append(com.id)
-		self.save()
+				self.save()
