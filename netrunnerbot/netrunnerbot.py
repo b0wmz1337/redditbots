@@ -36,7 +36,7 @@ ___
 		return reg
 
 	def searchNDB(self, query): # checks if nrdb has entry
-		query = urllib.urlencode(query)
+		query = urllib.quote_plus(query)
 		req = requests.get("http://netrunnerdb.com/find/?q="+query)
 		if "Your query didn't match any card." in req.text:
 			return None
