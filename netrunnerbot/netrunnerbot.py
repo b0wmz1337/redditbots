@@ -6,7 +6,6 @@ import requests
 import os
 import re
 import pickle
-import urllib
 from BeautifulSoup import BeautifulSoup
 
 class NETRUNNER():
@@ -36,7 +35,7 @@ ___
 		return reg
 
 	def searchNDB(self, query): # checks if nrdb has entry
-		query = urllib.quote_plus(query)
+		query = query.replace(" ", "+")
 		req = requests.get("http://netrunnerdb.com/find/?q="+query)
 		if "Your query didn't match any card." in req.text:
 			return None
