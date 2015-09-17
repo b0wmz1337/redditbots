@@ -13,7 +13,7 @@ class NETRUNNER():
 		self.path = os.path.realpath(__file__)
 		self.path = self.path.replace(os.path.basename(__file__), "")
 		self.r = praw.Reddit("Netrunner Cardbot")
-		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth2.txt")
+		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 		self.me = self.r.get_me()
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.bodyreg = re.compile(r"\[\[([)\w ]+)\]\]")
