@@ -10,12 +10,12 @@ from BeautifulSoup import BeautifulSoup
 
 class NETRUNNER():
 	def __init__(self, subreddit):
-		self.subreddit = subreddit
 		self.path = os.path.realpath(__file__)
 		self.path = self.path.replace(os.path.basename(__file__), "")
 		self.r = praw.Reddit("Netrunner Cardbot")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth2.txt")
 		self.me = self.r.get_me()
+		self.subreddit = self.r.get_subreddit(subreddit)
 		self.bodyreg = re.compile(r"\[\[([)\w ]+)\]\]")
 		self.urlreg = re.compile(r"http:\/\/netrunnerdb.com\/en\/card\/(\d+)")
 		self.comment = """[{0}](http://netrunnerdb.com/bundles/netrunnerdbcards/images/cards/en/{1}.png) - [NetrunnerDB](http://netrunnerdb.com/en/card/{1}), [ANCUR](http://ancur.wikia.com/wiki/{2})
@@ -50,22 +50,49 @@ ___
 		with open("doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
 
+	def parseComment(self, c):
+		if c.id in self.doneposts or c.author is self.me:
+			return
+		cb = self.checkBody(c.body)
+		if cb is not None:
+			comment = "I couldn't find any cards :(."
+			for idx,card in enumerate(cb):
+				cid = self.searchNDB(card)
+				if cid is None:
+					comment = ("" if idx == 0 else comment) + "I couldn't find {} \n\n".format(card)
+				else:
+					comment = ("" if idx == 0 else comment) + self.comment.format(card, cid, card.replace(" ", "_"))
+				if idx+1 == len(cb):
+					comment = comment+self.footer
+			com = c.reply(comment)
+			self.doneposts.append(c.id)
+			self.doneposts.append(com.id)
+			self.save()
+
+	def parseSelf(self, n):
+		if n.id in self.doneposts or n.author is self.me:
+			return
+		if not n.selftext:
+			self.doneposts.append(n.id)
+			return
+		cb = self.checkBody(n.selftext)
+		if cb is not None:
+			comment = "I couldn't find any cards :(."
+			for idx,card in enumerate(cb):
+				cid = self.searchNDB(card)
+				if cid is None:
+					comment = ("" if idx == 0 else comment) + "I couldn't find {} \n\n".format(card)
+				else:
+					comment = ("" if idx == 0 else comment) + self.comment.format(card, cid, card.replace(" ", "_"))
+				if idx+1 == len(cb):
+					comment = comment+self.footer
+			com = n.add_comment(comment)
+			self.doneposts.append(n.id)
+			self.doneposts.append(com.id)
+			self.save()
+
 	def main(self):
-		for c in self.r.get_subreddit(self.subreddit).get_comments():
-			if c.id in self.doneposts or c.author is self.me:
-				continue
-			cb = self.checkBody(c.body)
-			if cb is not None:
-				comment = "I couldn't find any cards :(."
-				for idx,card in enumerate(cb):
-					cid = self.searchNDB(card)
-					if cid is None:
-						comment = ("" if idx == 0 else comment) + "I couldn't find {} \n\n".format(card)
-					else:
-						comment = ("" if idx == 0 else comment) + self.comment.format(card, cid, card.replace(" ", "_"))
-					if idx+1 == len(cb):
-						comment = comment+self.footer
-				com = c.reply(comment)
-				self.doneposts.append(c.id)
-				self.doneposts.append(com.id)
-				self.save()
+		for c in self.subreddit.get_comments():
+			self.parseComment(c)
+		for n in self.subreddit.get_new():
+			self.parseSelf(n)
