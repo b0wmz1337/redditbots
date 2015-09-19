@@ -115,14 +115,14 @@ class NETRUNNER():
 		self.me = str(self.r.get_me())
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.bodyreg = re.compile(r"\[\[([)\w :&.\-'\"]+)\]\]")
-		self.cardslist = CARDLIST(clist)
+		self.cardslist = CARDLIST(self.path+clist)
 		self.comment = """[{0}](http://netrunnerdb.com{1}) - [NetrunnerDB]({2}), [ANCUR]({3})  
 """
 		self.footer = """
 ___
 [[Contact]](/message/compose/?to=b0wmz&subject=NetrunnerBot) [[Source]](https://github.com/b0wmz1337/redditbots/tree/master/netrunnerbot)"""
 
-		with open("doneposts", "rb") as file:
+		with open(self.path+"doneposts", "rb") as file:
 			self.doneposts = pickle.load(file)
 
 	def checkBody(self, body): # checks for something like [[*]]
@@ -132,7 +132,7 @@ ___
 		return reg
 
 	def save(self):
-		with open("doneposts", "wb") as file:
+		with open(self.path+"doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
 
 	def parseComment(self, c):
