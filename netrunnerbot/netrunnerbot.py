@@ -110,9 +110,9 @@ class NETRUNNER():
 	def __init__(self, subreddit, clist):
 		self.path = os.path.realpath(__file__)
 		self.path = self.path.replace(os.path.basename(__file__), "")
-		self.r = praw.Reddit("Netrunner Cardbot")
+		self.r = praw.Reddit("Netrunner Card Fetcher v0.1 by /u/b0wmz")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
-		self.me = self.r.get_me()
+		self.me = str(self.r.get_me())
 		self.subreddit = self.r.get_subreddit(subreddit)
 		self.bodyreg = re.compile(r"\[\[([)\w :&.\-'\"]+)\]\]")
 		self.cardslist = CARDLIST(clist)
@@ -137,7 +137,7 @@ ___
 
 	def parseComment(self, c):
 		try:
-			if c.id in self.doneposts or c.author == self.me:
+			if c.id in self.doneposts or str(c.author) == self.me:
 				return
 		except praw.errors.NotFound:
 			return
@@ -168,7 +168,7 @@ ___
 
 	def parseSelf(self, n):
 		try:
-			if n.id in self.doneposts or n.author == self.me:
+			if n.id in self.doneposts or str(n.author) == self.me:
 				return
 		except praw.errors.NotFound:
 			return
@@ -199,8 +199,10 @@ ___
 
 	def main(self):
 		for c in self.subreddit.get_comments():
+			print "comment"
 			self.parseComment(c)
 		for n in self.subreddit.get_new():
+			print "text"
 			self.parseSelf(n)
 
 if __name__ == "__main__":
