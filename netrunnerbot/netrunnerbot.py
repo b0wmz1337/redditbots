@@ -192,7 +192,7 @@ ___
 			self.save()
 
 	def main(self):
-		for c in self.subreddit.get_comments(limit=3):
+		for c in self.subreddit.get_comments():
 			self.parseComment(c)
 		for n in self.subreddit.get_new():
 			self.parseSelf(n)
