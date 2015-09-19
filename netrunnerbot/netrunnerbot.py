@@ -136,7 +136,10 @@ ___
 			pickle.dump(self.doneposts, file)
 
 	def parseComment(self, c):
-		if c.id in self.doneposts or c.author == self.me:
+		try:
+			if c.id in self.doneposts or c.author == self.me:
+				return
+		except praw.errors.NotFound:
 			return
 		if not c.body:
 			self.doneposts.append(c.id)
@@ -164,7 +167,10 @@ ___
 			self.save()
 
 	def parseSelf(self, n):
-		if n.id in self.doneposts or n.author == self.me:
+		try:
+			if n.id in self.doneposts or n.author == self.me:
+				return
+		except praw.errors.NotFound:
 			return
 		if not n.selftext:
 			self.doneposts.append(n.id)
