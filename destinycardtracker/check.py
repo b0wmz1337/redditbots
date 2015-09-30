@@ -21,7 +21,7 @@ class DESTINY():
 		try:
 			with open(self.path+"doneposts", "rb") as file:
 				self.doneposts = pickle.load(file)
-		except IOError:
+		except (IOError, EOFError) as e:
 			with open(self.path+"doneposts", "wb") as file:
 				pickle.dump([], file)
 			self.doneposts = []
@@ -69,3 +69,6 @@ class DESTINY():
 	def save(self):
 		with open(self.path+"doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
+if __name__ == "__main__":
+	d = DESTINY("")
+	d.parse()
