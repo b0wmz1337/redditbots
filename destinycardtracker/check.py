@@ -27,11 +27,9 @@ class DESTINY():
 			self.doneposts = []
 
 	def checkCard(self, gamertag):
-		print "http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote_plus(gamertag))
-		exit()
-		req = requests.get("http://destinytracker.com/destiny/grimoire/ps/{}".format(urllib.quote_plus(gamertag)))
+		req = requests.get("http://destinytracker.com/destiny/grimoire/ps/{}".format(urllib.quote(gamertag)))
 		if "Can't find any stats for" in req.text:
-			req = requests.get("http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote_plus(gamertag)))
+			req = requests.get("http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote(gamertag)))
 			if "Can't find any stats for" in req.text:
 				return None
 		soup = BeautifulSoup(req.content)
