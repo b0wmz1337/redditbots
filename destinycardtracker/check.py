@@ -41,6 +41,8 @@ class DESTINY():
 	def parse(self):
 		for i in self.subreddit.get_comments():
 			result = self.reg.findall(i.body)
+			if i.id in self.donepost:
+				continue
 			if not result:
 				#self.doneposts.append(i.id)
 				continue
@@ -51,6 +53,8 @@ class DESTINY():
 		for i in self.subreddit.get_new():
 			if not i.selftext:
 				self.doneposts.append(i.id)
+				continue
+			if i.id in self.donepost:
 				continue
 			result = self.reg.findall(i.selftext)
 			if not result:
