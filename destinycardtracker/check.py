@@ -15,7 +15,7 @@ class DESTINY():
 		self.path = self.path.replace(os.path.basename(__file__), "")
 		self.r = praw.Reddit("/r/FlawlessRaiders card checker v0.1")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
-		self.reg = re.compile(r"GT ?: ?(\w+)", flags=re.IGNORECASE)
+		self.reg = re.compile(r"GT ?: ?([\w\d ]+)", flags=re.IGNORECASE)
 		self.subreddit = self.r.get_subreddit(subreddit)
 
 		try:
@@ -27,6 +27,8 @@ class DESTINY():
 			self.doneposts = []
 
 	def checkCard(self, gamertag):
+		print "http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote_plus(gamertag))
+		exit()
 		req = requests.get("http://destinytracker.com/destiny/grimoire/ps/{}".format(urllib.quote_plus(gamertag)))
 		if "Can't find any stats for" in req.text:
 			req = requests.get("http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote_plus(gamertag)))
