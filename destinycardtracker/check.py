@@ -6,6 +6,7 @@ import os
 import pickle
 import re
 import requests
+import urllib
 from BeautifulSoup import BeautifulSoup
 
 class DESTINY():
@@ -26,9 +27,9 @@ class DESTINY():
 			self.doneposts = []
 
 	def checkCard(self, gamertag):
-		req = requests.get("http://destinytracker.com/destiny/grimoire/ps/{}".format(gamertag))
+		req = requests.get("http://destinytracker.com/destiny/grimoire/ps/{}".format(urllib.quote_plus(gamertag)))
 		if "Can't find any stats for" in req.text:
-			req = requests.get("http://destinytracker.com/destiny/grimoire/xbox/{}".format(gamertag))
+			req = requests.get("http://destinytracker.com/destiny/grimoire/xbox/{}".format(urllib.quote_plus(gamertag)))
 			if "Can't find any stats for" in req.text:
 				return None
 		soup = BeautifulSoup(req.content)
@@ -41,7 +42,7 @@ class DESTINY():
 	def parse(self):
 		for i in self.subreddit.get_comments():
 			result = self.reg.findall(i.body)
-			if i.id in self.donepost:
+			if i.id in self.doneposts:
 				continue
 			if not result:
 				#self.doneposts.append(i.id)
@@ -54,7 +55,7 @@ class DESTINY():
 			if not i.selftext:
 				self.doneposts.append(i.id)
 				continue
-			if i.id in self.donepost:
+			if i.id in self.doneposts:
 				continue
 			result = self.reg.findall(i.selftext)
 			if not result:
@@ -68,7 +69,3 @@ class DESTINY():
 	def save(self):
 		with open(self.path+"doneposts", "wb") as file:
 			pickle.dump(self.doneposts, file)
-
-if __name__ == "__main__":
-	d = DESTINY("")
-	d.parse()
