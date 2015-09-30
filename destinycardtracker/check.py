@@ -48,7 +48,10 @@ class DESTINY():
 				#self.doneposts.append(i.id)
 				continue
 			card = self.checkCard(result[-1])
-			i.reply("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+			if card is None:
+				i.reply("Could not find Gamertag `{}`".format(result[-1]))
+			else:
+				i.reply("Killed Oryz?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 		for i in self.subreddit.get_new():
@@ -62,7 +65,10 @@ class DESTINY():
 				self.doneposts.append(i.id)
 				continue
 			card = self.checkCard(result[-1])
-			i.add_comment("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+			if card is None:
+				i.add_comment("Could not find Gamertag `{}`".format(result[-1]))
+			else:
+				i.add_comment("Killed Oryz?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 
