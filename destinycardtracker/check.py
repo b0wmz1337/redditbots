@@ -51,7 +51,7 @@ class DESTINY():
 			if card is None:
 				i.reply("Could not find Gamertag `{}`".format(result[-1]))
 			else:
-				i.reply("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+				i.reply("Killed Oryx?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 		for i in self.subreddit.get_new():
