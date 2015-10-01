@@ -35,7 +35,7 @@ class DESTINY():
 		soup = BeautifulSoup(req.content)
 
 		oryxdefeated = soup.find("a", {"href": "//db.destinytracker.com/grimoire/enemies/exalted-hive/oryx-defeated"})
-		try
+		try:
 			if oryxdefeated.parent.parent['class'] == "acquired":
 				return True
 			return False
