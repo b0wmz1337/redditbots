@@ -71,7 +71,7 @@ class DESTINY():
 			if card is None:
 				i.add_comment("Could not find Gamertag `{}`".format(result[-1]))
 			else:
-				i.add_comment("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+				i.add_comment("Killed Oryx?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 
