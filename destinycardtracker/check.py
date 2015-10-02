@@ -43,7 +43,7 @@ class DESTINY():
 			return None
 
 	def parse(self):
-		for i in self.subreddit.get_comments():
+		for i in self.subreddit.get_comments(limit=100):
 			result = self.reg.findall(i.body)
 			if i.id in self.doneposts:
 				continue
