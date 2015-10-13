@@ -35,12 +35,15 @@ class DESTINY():
 		soup = BeautifulSoup(req.content)
 
 		oryxdefeated = soup.find("a", {"href": "//db.destinytracker.com/grimoire/enemies/exalted-hive/oryx-defeated"})
-		if oryxdefeated.parent.parent['class'] == "acquired":
-			return True
-		return False
+		try:
+			if oryxdefeated.parent.parent['class'] == "acquired":
+				return True
+			return False
+		except AttributeError:
+			return None
 
 	def parse(self):
-		for i in self.subreddit.get_comments():
+		for i in self.subreddit.get_comments(limit=100):
 			result = self.reg.findall(i.body)
 			if i.id in self.doneposts:
 				continue
@@ -51,7 +54,7 @@ class DESTINY():
 			if card is None:
 				i.reply("Could not find Gamertag `{}`".format(result[-1]))
 			else:
-				i.reply("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+				i.reply("Killed Oryx?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 		for i in self.subreddit.get_new():
@@ -68,7 +71,7 @@ class DESTINY():
 			if card is None:
 				i.add_comment("Could not find Gamertag `{}`".format(result[-1]))
 			else:
-				i.add_comment("Killed Oryz?: {}".format("Yes" if card is True else "No"))
+				i.add_comment("Killed Oryx?: {}".format("Yes" if card is True else "No"))
 			self.doneposts.append(i.id)
 			self.save()
 
