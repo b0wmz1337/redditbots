@@ -2,7 +2,7 @@ from tumblpy import Tumblpy
 import praw
 import OAuth2Util
 import os
-import pickle as pickle
+import cPickle as pickle
 import traceback
 
 SUBREDDIT = "Showerthoughts"
@@ -44,10 +44,10 @@ def handle(submissionobject):
 		return
 	result = t.post("post", blog_url=TUMBLRBLOG, params={"type": "text", "body": submissionobject.title, "source_url": submissionobject.permalink})
 	try:
-		print(result['id'])
+		print result['id']
 		doneposts.append(submissionobject.permalink)
 	except KeyError:
-		print("Couldn't post to Tumblr, error: \n{}".format(traceback.format_exc()))
+		print "Couldn't post to Tumblr, error: \n{}".format(traceback.format_exc())
 	save()
 
 for i in sub.get_hot():
