@@ -82,7 +82,7 @@ Pick Accuracy|{}"""
 		 values['pickaccuracy'])
 
 	def parseComments(self):
-		for i in self.subreddit.get_comments(limit=5):
+		for i in self.subreddit.get_comments(limit=100):
 			try:
 				username = self.reg.match(i.body).group(1)
 			except AttributeError:
