@@ -89,11 +89,11 @@ Pick Accuracy|{}"""
 			except AttributeError:
 				# self.doneposts.append(i.id)
 				print "AttributeError"
-				self.doneposts.add(i.id)
+				self.doneposts.append(i.id)
 				self.save()
 				continue
 			
 			response = self.createResponse(username)
 			i.reply(response)
-			self.doneposts.add(i.id)
+			self.doneposts.append(i.id)
 			self.save()
