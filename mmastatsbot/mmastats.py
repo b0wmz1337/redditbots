@@ -16,6 +16,14 @@ class MMABOT():
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 		self.subreddit = self.r.get_subreddit(subreddit)
 
+		try:
+			with open(self.path+"doneposts", "rb") as file:
+				self.doneposts = pickle.load(file)
+		except (IOError, EOFError) as e:
+			with open(self.path+"doneposts", "wb") as file:
+				pickle.dump([], file)
+			self.doneposts = []
+
 		self.reg = re.compile(r"!pickem (\S*)", flags=re.IGNORECASE)
 		self.template = """Stats as of *UFC {}*|/u/{}
 :|:
@@ -58,6 +66,10 @@ Pick Accuracy|{}"""
 
 		return result
 
+	def save(self):
+		with open(self.path+"doneposts", "wb") as file:
+			pickle.dump(self.doneposts, file)
+
 	def createResponse(self, username):
 		response = self.template
 		values = m.gatherValues(username)
@@ -76,10 +88,11 @@ Pick Accuracy|{}"""
 			except AttributeError:
 				# self.doneposts.append(i.id)
 				print "AttributeError"
-				continue
-
-			if "cwa27cd" in i.id:
+				self.doneposts.add(i.id)
+				self.save()
 				continue
 			
 			response = self.createResponse(username)
 			i.reply(response)
+			self.doneposts.add(i.id)
+			self.save()
