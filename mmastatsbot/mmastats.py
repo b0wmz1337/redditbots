@@ -73,7 +73,7 @@ Pick Accuracy|{}"""
 
 	def createResponse(self, username):
 		response = self.template
-		values = m.gatherValues(username)
+		values = self.gatherValues(username)
 		return response.format(self.ufcnumber,\
 		 username, \
 		 values['p4pranking'], \
