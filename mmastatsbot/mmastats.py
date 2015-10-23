@@ -7,6 +7,7 @@ import gspread
 import json
 from oauth2client.client import SignedJwtAssertionCredentials
 import re
+import pickle
 
 class MMABOT():
 	def __init__(self, subreddit, apijson, spreadsheetkey):
