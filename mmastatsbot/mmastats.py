@@ -26,7 +26,7 @@ class MMABOT():
 			self.doneposts = []
 
 		self.reg = re.compile(r"!pickem (\S*)", flags=re.IGNORECASE)
-		self.template = """Stats as of *UFC {}*|/u/{}
+		self.template = """Stats as of *{}*|/u/{}
 :|:
 Current P4P Ranking|{}
 Current Weight Class|{}
