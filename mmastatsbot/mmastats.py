@@ -41,7 +41,7 @@ Pick Accuracy|{}"""
 		self.spreadsheet = self.gc.open_by_key(spreadsheetkey)
 		self.abbrev = {"Heavyweight": "HW", "Light Heavyweight": "LHW", "Middleweight": "MW", "Lightweight": "LW", "Featherweight": "FTW", "Bantamweight": "BW", "Flyweight": "FLW", "Women's Bantamweight": "WBW", "Women's Strawweight": "WSW"}
 
-		self.ufcnumber = re.search(r"\(UFC (\d{3})\)", self.spreadsheet.title).group(1)
+		self.eventtitle = self.spreadsheet.get_worksheet(0).title
 
 	def gatherValues(self, username):
 		worksheet = self.spreadsheet.worksheet("P4P")
@@ -74,7 +74,7 @@ Pick Accuracy|{}"""
 	def createResponse(self, username):
 		response = self.template
 		values = self.gatherValues(username)
-		return response.format(self.ufcnumber,\
+		return response.format(self.eventtitle,\
 		 username, \
 		 values['p4pranking'], \
 		 values['weightclass'], \
@@ -83,7 +83,7 @@ Pick Accuracy|{}"""
 		 values['pickaccuracy'])
 
 	def parseComments(self):
-		for i in self.subreddit.get_comments(limit=100):
+		for i in self.subreddit.get_comments(limit=1000):
 			try:
 				username = self.reg.match(i.body).group(1)
 			except AttributeError:
