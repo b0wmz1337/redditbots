@@ -84,10 +84,12 @@ Pick Accuracy|{}"""
 
 	def parseComments(self):
 		for i in self.subreddit.get_comments(limit=1000):
+			if i.id in self.doneposts:
+				continue
 			try:
 				username = self.reg.match(i.body).group(1)
 			except AttributeError:
-				# self.doneposts.append(i.id)
+				self.doneposts.append(i.id)
 				print "AttributeError"
 				self.doneposts.append(i.id)
 				self.save()
