@@ -39,7 +39,7 @@ Pick Accuracy|{}"""
 		credentials = SignedJwtAssertionCredentials(json_key['client_email'], json_key['private_key'].encode(), ['https://spreadsheets.google.com/feeds'])
 		self.gc = gspread.authorize(credentials)
 		self.spreadsheet = self.gc.open_by_key(spreadsheetkey)
-		self.abbrev = {"Heavyweight": "HW", "Light Heavyweight": "LHW", "Middleweight": "MW", "Lightweight": "LW", "Featherweight": "FTW", "Bantamweight": "BW", "Flyweight": "FLW", "Women's Bantamweight": "WBW", "Women's Strawweight": "WSW"}
+		self.abbrev = {"Heavyweight": "HW", "Light Heavyweight": "LHW", "Middleweight": "MW", "Lightweight": "LW", "Featherweight": "FTW", "Bantamweight": "BW", "Flyweight": "FLW", "Women's Bantamweight": "WBW", "Women's Strawweight": "WSW", "Welterweight": "WW"}
 
 		self.eventtitle = self.spreadsheet.get_worksheet(0).title
 
