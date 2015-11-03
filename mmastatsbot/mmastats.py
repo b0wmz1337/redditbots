@@ -74,6 +74,8 @@ Pick Accuracy|{}"""
 	def createResponse(self, username):
 		response = self.template
 		values = self.gatherValues(username)
+		if values is False:
+			return False
 		return response.format(self.eventtitle,\
 		 username, \
 		 values['p4pranking'], \
@@ -97,6 +99,7 @@ Pick Accuracy|{}"""
 					continue
 				
 				response = self.createResponse(username)
-				i.reply(response)
+				if response not False:
+					i.reply(response)
 				self.doneposts.append(i.id)
 				self.save()
