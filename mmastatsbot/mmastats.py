@@ -13,7 +13,7 @@ class MMABOT():
 	def __init__(self, subreddit, apijson, spreadsheetkey):
 		self.path = os.path.realpath(__file__)
 		self.path = self.path.replace(os.path.basename(__file__), "")
-		self.r = praw.Reddit("/r/MMA Stats bot v0.1")
+		self.r = praw.Reddit("/r/MMA Stats bot v0.2")
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 		self.subreddit = self.r.get_subreddit(subreddit)
 
@@ -83,19 +83,20 @@ Pick Accuracy|{}"""
 		 values['pickaccuracy'])
 
 	def parseComments(self):
-		for i in self.subreddit.get_comments(limit=1000):
-			if i.id in self.doneposts:
-				continue
-			try:
-				username = self.reg.match(i.body).group(1)
-			except AttributeError:
-				self.doneposts.append(i.id)
-				print "AttributeError"
+		for post in self.r.search("[Official] /r/MMA Pick 'Em Tournament:", self.subreddit):
+			for i in praw.helpers.flatten_tree(post.comments):
+				if i.id in self.doneposts:
+					continue
+				try:
+					username = self.reg.match(i.body).group(1)
+				except AttributeError:
+					self.doneposts.append(i.id)
+					print "AttributeError"
+					self.doneposts.append(i.id)
+					self.save()
+					continue
+				
+				response = self.createResponse(username)
+				i.reply(response)
 				self.doneposts.append(i.id)
 				self.save()
-				continue
-			
-			response = self.createResponse(username)
-			i.reply(response)
-			self.doneposts.append(i.id)
-			self.save()
