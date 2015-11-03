@@ -99,7 +99,7 @@ Pick Accuracy|{}"""
 					continue
 				
 				response = self.createResponse(username)
-				if response not False:
+				if response is not False:
 					i.reply(response)
 				self.doneposts.append(i.id)
 				self.save()
