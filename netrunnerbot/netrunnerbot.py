@@ -33,7 +33,7 @@ class CARDLIST():
 	def search(self, search):
 		result = []
 		for i in self.cards:
-			if search.lower() in i.title.lower():
+			if search.lower().decode('utf-8') in i.title.lower():
 				result.append(i)
 		return result
 
