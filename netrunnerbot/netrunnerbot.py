@@ -33,7 +33,7 @@ class CARDLIST():
 	def search(self, search):
 		result = []
 		for i in self.cards:
-			if search.lower().decode('utf-8') in i.title.lower():
+			if search.lower().encode('utf-8') in i.title.lower().encode('utf-8'):
 				result.append(i)
 		return result
 
@@ -158,7 +158,7 @@ ___
 						comment = comment + "I found multiple results for `{}`:\n\n".format(cardl)
 					for thisisacard in result:
 						# self.comment = """[{0}]({1}) - [NetrunnerDB]({2}), [ANCUR]({3})
-						comment = ("" if (idx == 0 and len(result) == 1) else comment) + self.comment.format(thisisacard.title, thisisacard.img, thisisacard.url, thisisacard.ancurLink)
+						comment = ("" if (idx == 0 and len(result) == 1) else comment) + self.comment.format(thisisacard.title.encode('utf-8'), thisisacard.img, thisisacard.url, thisisacard.ancurLink)
 				if idx+1 == len(cb):
 					comment = comment+self.footer
 			com = c.reply(comment)
@@ -189,7 +189,7 @@ ___
 						comment = comment + "I found multiple results for `{}`:\n\n".format(cardl)
 					for thisisacard in result:
 						# self.comment = """[{0}]({1}) - [NetrunnerDB]({2}), [ANCUR]({3})
-						comment = ("" if (idx == 0 and len(result) == 1) else comment) + self.comment.format(thisisacard.title, thisisacard.img, thisisacard.url, thisisacard.ancurLink)
+						comment = ("" if (idx == 0 and len(result) == 1) else comment) + self.comment.format(thisisacard.title.encode('utf-8'), thisisacard.img, thisisacard.url, thisisacard.ancurLink)
 				if idx+1 == len(cb):
 					comment = comment+self.footer
 			com = n.add_comment(comment)
