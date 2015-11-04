@@ -114,7 +114,7 @@ class NETRUNNER():
 		self._o = OAuth2Util.OAuth2Util(self.r, configfile=self.path+"oauth.txt")
 		self.me = str(self.r.get_me())
 		self.subreddit = self.r.get_subreddit(subreddit)
-		self.bodyreg = re.compile(r"\[\[([)\w :&.\-'\"]+)\]\]")
+		self.bodyreg = re.compile(r"\[\[([)\w :&.\-'\"]+)\]\]", re.UNICODE)
 		self.cardslist = CARDLIST(self.path+clist)
 		self.comment = """[{0}](http://netrunnerdb.com{1}) - [NetrunnerDB]({2}), [ANCUR]({3})  
 """
